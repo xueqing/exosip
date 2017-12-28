@@ -36,6 +36,7 @@ libosip2-5.0.0/osip-config.h
 libosip2-5.0.0/stamp-h1
 
 #binary file created by compiling in c-ares
+c-ares-1.12.0/.libs
 c-ares-1.12.0/.deps
 c-ares-1.12.0/ares_build.h
 c-ares-1.12.0/ares_config.h
@@ -47,3 +48,6 @@ c-ares-1.12.0/test/.deps/
 c-ares-1.12.0/test/config.h
 c-ares-1.12.0/test/libtool
 c-ares-1.12.0/test/stamp-h1
+c-ares-1.12.0/acountry
+c-ares-1.12.0/adig
+c-ares-1.12.0/ahost

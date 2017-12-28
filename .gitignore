@@ -6,7 +6,7 @@
 
 #binary file created by compiling in libexosip
 libexosip2-5.0.0/src/.deps
-libexosip2-5.0.0/src/.libs
+libexosip2-5.0.0/src/.libs/*.lai
 *.la
 *.lo
 *.o
@@ -20,12 +20,11 @@ libexosip2-5.0.0/exosip-config.h
 libexosip2-5.0.0/stamp-h1
 
 #binary file created by compiling in libosip2
-libosip2-5.0.0/src/.deps
-libosip2-5.0.0/src/.libs
 libosip2-5.0.0/src/osipparser2/.deps
-libosip2-5.0.0/src/osipparser2/.libs
+libosip2-5.0.0/src/osipparser2/.libs/*.lai
 libosip2-5.0.0/src/osip2/.deps
-libosip2-5.0.0/src/osip2/.libs
+libosip2-5.0.0/src/osip2/.libs/*.lai
+libosip2-5.0.0/src/osip2/.libs/libosip2.so.12.0.0T
 libosip2-5.0.0/src/test/.deps
 *.log
 *.status
@@ -36,7 +35,13 @@ libosip2-5.0.0/osip-config.h
 libosip2-5.0.0/stamp-h1
 
 #binary file created by compiling in c-ares
-c-ares-1.12.0/.libs
+c-ares-1.12.0/.pdf
+c-ares-1.12.0/confdefs.h
+c-ares-1.12.0/conftest.h
+c-ares-1.12.0/.libs/*.lai
+c-ares-1.12.0/.libs/acountry
+c-ares-1.12.0/.libs/adig
+c-ares-1.12.0/.libs/ahost
 c-ares-1.12.0/.deps
 c-ares-1.12.0/ares_build.h
 c-ares-1.12.0/ares_config.h

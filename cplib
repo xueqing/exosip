@@ -1,0 +1,133 @@
+#!/bin/bash
+
+function JudgeInputParams() {
+	echo "JudgeInputParams"  $1 $2
+
+	if [ ! -d "/$1" ]
+	then
+		echo "$1 not exist"
+		return -1
+	fi
+
+	case $2 in
+		s|d)
+		;;
+		*)
+		echo "[s|d] supported only"
+		return -1
+		;;
+	esac
+	case $3 in
+		all|cares|osip|exosip)
+		;;
+		*)
+		echo "[all|cares|osip|exosip] supported only"
+		return -1
+		;;
+	esac
+}
+
+function CopyCaresLibrary {
+	DEST_PATH=$1
+	
+	case $2 in
+		"s")
+		libdir="/usr/local/lib"
+		cp -a  $libdir/libcares.so* $DEST_PATH
+		;;
+		"d")
+		libdir="/usr/local/lib"
+		cp -a  $libdir/libcares.a $DEST_PATH
+		;;
+		"h")
+		libdir="/usr/local/include"
+		cp -a -p $libdir/ares*.h $DEST_PATH/cares
+		;;
+	esac
+}
+
+function CopyOsipLibrary {
+	DEST_PATH=$1
+	
+	case $2 in
+		"s")
+		libdir="/usr/local/lib"
+		cp -a  $libdir/libosipparser2.so* $DEST_PATH
+		cp -a  $libdir/libosip2.so* $DEST_PATH
+		;;
+		"d")
+		libdir="/usr/local/lib"
+		cp -a  $libdir/libosipparser2.a $DEST_PATH
+		cp -a  $libdir/libosip2.a $DEST_PATH
+		;;
+		"h")
+		libdir="/usr/local/include/osipparser2"
+		cp -a -p $libdir/* $DEST_PATH/osipparser2
+		libdir="/usr/local/include/osip2"
+		cp -a -p $libdir/* $DEST_PATH/osip2
+		;;
+	esac
+}
+
+function CopyExosipLibrary {
+	DEST_PATH=$1
+	
+	case $2 in
+		"s")
+		libdir="/usr/local/lib"
+		cp -a $libdir/libeXosip2.so* $DEST_PATH
+		;;
+		"d")
+		libdir="/usr/local/lib"
+		cp -a  $libdir/libeXosip2.a $DEST_PATH
+		;;
+		"h")
+		libdir="/usr/local/include/eXosip2"
+		cp -a -p $libdir/* $DEST_PATH/eXosip2
+		;;
+	esac
+}
+
+paraNum=4
+if [ $# -lt $paraNum ]
+then
+	echo "usage: ./cplib DEST_PATH [s|d|h] [all|cares|osip|exosip] groupname"
+	echo "s: static library"
+	echo "d: dynamic library"
+	echo "h: header"
+	exit
+fi
+
+JudgeInputParams $1 $2 $3
+if [ $? -eq -1 ]
+then
+	exit
+fi
+
+# 解析拷贝库名称
+case $3 in
+	"all")
+	echo 'Copy all library'
+	CopyCaresLibrary $1 $2
+	CopyOsipLibrary $1 $2
+	CopyExosipLibrary $1 $2
+	;;
+	"cares")
+	echo 'Copy cares library'
+	CopyCaresLibrary $1 $2
+	;;
+	"osip")
+	echo 'Copy osip library'
+	CopyOsipLibrary $1 $2
+	;;
+	"exosip")
+	echo 'Copy exosip library'
+	CopyExosipLibrary $1 $2
+	;;
+	*)
+	echo 'Wrong params'
+	exit
+	;;
+esac
+
+chown -R $4:$4 $1

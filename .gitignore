@@ -3,6 +3,7 @@
 
 #tmp file
 *.*~
+*~
 
 #binary file created by compiling in libexosip
 libexosip2-5.0.0/src/.deps

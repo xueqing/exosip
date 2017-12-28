@@ -15,6 +15,9 @@ libexosip2-5.0.0/help/doxygen/doxygen.dox
 libexosip2-5.0.0/tools/.deps
 libexosip2-5.0.0/tools/.libs
 libexosip2-5.0.0/tools/sip_reg
+libexosip2-5.0.0/libtool
+libexosip2-5.0.0/exosip-config.h
+libexosip2-5.0.0/stamp-h1
 
 #binary file created by compiling in libosip2
 libosip2-5.0.0/src/.deps

@@ -1,4 +1,33 @@
 #.pro.user file
 *.user*
+
 #tmp file
 *.*~
+
+#binary file created by compiling in libexosip
+libexosip2-5.0.0/src/.deps
+libexosip2-5.0.0/src/.libs
+*.la
+*.lo
+*.o
+*Makefile
+libexosip2-5.0.0/help/doxygen/doxygen.dox
+libexosip2-5.0.0/tools/.deps
+libexosip2-5.0.0/tools/.libs
+libexosip2-5.0.0/tools/sip_reg
+
+#binary file created by compiling in libosip2
+libosip2-5.0.0/src/.deps
+libosip2-5.0.0/src/.libs
+libosip2-5.0.0/src/osipparser2/.deps
+libosip2-5.0.0/src/osipparser2/.libs
+libosip2-5.0.0/src/osip2/.deps
+libosip2-5.0.0/src/osip2/.libs
+libosip2-5.0.0/src/test/.deps
+*.log
+*.status
+libosip2-5.0.0/include/osip2/doxygen.dox
+libosip2-5.0.0/libosip2.pc
+libosip2-5.0.0/libtool
+libosip2-5.0.0/osip-config.h
+libosip2-5.0.0/stamp-h1

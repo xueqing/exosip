@@ -44,6 +44,9 @@ static int sdp_message_parse_k (sdp_message_t * sdp, char *buf, char **next);
 static int sdp_message_parse_a (sdp_message_t * sdp, char *buf, char **next);
 static int sdp_message_parse_m (sdp_message_t * sdp, char *buf, char **next);
 
+static int sdp_message_parse_y (sdp_message_t * sdp, char *buf, char **next); /*kiki: 2017/6/1*/
+static int sdp_message_parse_f (sdp_message_t * sdp, char *buf, char **next); /*kiki: 2017/6/1*/
+
 static int sdp_append_media (char **string, int *size, char *tmp, sdp_media_t * media, char **next_tmp);
 static int sdp_append_attribute (char **string, int *size, char *tmp, sdp_attribute_t * attribute, char **next_tmp);
 static int sdp_append_key (char **string, int *size, char *tmp, sdp_key_t * key, char **next_tmp);
@@ -314,6 +317,10 @@ sdp_message_init (sdp_message_t ** sdp)
     *sdp = NULL;
     return OSIP_NOMEM;
   }
+
+  (*sdp)->y_ssrc = NULL;
+  (*sdp)->f_mediainfo = NULL;
+
   return OSIP_SUCCESS;
 }
 
@@ -1392,6 +1399,87 @@ sdp_message_parse_m (sdp_message_t * sdp, char *buf, char **next)
   return WF;
 }
 
+static int
+sdp_message_parse_y (sdp_message_t * sdp, char *buf, char **next)
+{
+  char *equal;
+  char *crlf;
+
+  *next = buf;
+
+  equal = buf;
+  while ((*equal != '=') && (*equal != '\0'))
+    equal++;
+  if (*equal == '\0')
+    return ERR_ERROR;
+
+  if (equal == buf)
+    return ERR_DISCARD;
+
+  /* check if header is "y" */
+  if (equal[-1] != 'y')
+    return ERR_DISCARD;
+
+  crlf = equal + 1;
+
+  while ((*crlf != '\r') && (*crlf != '\n') && (*crlf != '\0'))
+    crlf++;
+  if (*crlf == '\0')
+    return ERR_ERROR;
+  if (crlf == equal + 1)
+    return ERR_ERROR;           /*y=\r ?? bad header */
+  sdp->y_ssrc = osip_malloc (crlf - (equal + 1) + 1);
+  if (sdp->y_ssrc == NULL)
+    return OSIP_NOMEM;
+  osip_strncpy (sdp->y_ssrc, equal + 1, crlf - (equal + 1));
+
+  if (crlf[1] == '\n')
+    *next = crlf + 2;
+  else
+    *next = crlf + 1;
+  return WF;
+}
+
+static int
+sdp_message_parse_f (sdp_message_t * sdp, char *buf, char **next)
+{
+  char *equal;
+  char *crlf;
+
+  *next = buf;
+
+  equal = buf;
+  while ((*equal != '=') && (*equal != '\0'))
+    equal++;
+  if (*equal == '\0')
+    return ERR_ERROR;
+
+  if (equal == buf)
+    return ERR_DISCARD;
+
+  /* check if header is "v" */
+  if (equal[-1] != 'f')
+    return ERR_DISCARD;
+
+  crlf = equal + 1;
+
+  while ((*crlf != '\r') && (*crlf != '\n') && (*crlf != '\0'))
+    crlf++;
+  if (*crlf == '\0')
+    return ERR_ERROR;
+//  if (crlf == equal + 1)
+//    return ERR_ERROR;           /*f=\r ?? bad header */
+  sdp->f_mediainfo = osip_malloc (crlf - (equal + 1) + 1);
+  if (sdp->f_mediainfo == NULL)
+    return OSIP_NOMEM;
+  osip_strncpy (sdp->f_mediainfo, equal + 1, crlf - (equal + 1));
+
+  if (crlf[1] == '\n')
+    *next = crlf + 2;
+  else
+    *next = crlf + 1;
+  return WF;
+}
 
 int
 sdp_message_parse (sdp_message_t * sdp, const char *buf)
@@ -1631,6 +1719,22 @@ sdp_message_parse (sdp_message_t * sdp, const char *buf)
       }
     }
   }
+
+  /* "y" header */
+  i = sdp_message_parse_y (sdp, ptr, &next_buf);
+  if (i == -1)                  /* header is bad */
+    return -1;
+  ptr = next_buf;
+  if (*ptr == '\0' || (*ptr == '\r') || (*ptr == '\n'))
+    return OSIP_SUCCESS;
+
+  /* "f" header */
+  i = sdp_message_parse_f (sdp, ptr, &next_buf);
+  if (i == -1)                  /* header is bad */
+    return -1;
+  ptr = next_buf;
+  if (*ptr == '\0' || (*ptr == '\r') || (*ptr == '\n'))
+    return OSIP_SUCCESS;
 
   return OSIP_SUCCESS;
 }
@@ -2005,6 +2109,18 @@ sdp_message_to_str (sdp_message_t * sdp, char **dest)
     tmp = next_tmp;
     pos++;
   }
+
+  if (sdp->y_ssrc != NULL) {
+    tmp = __osip_sdp_append_string (&string, &size, tmp, "y=");
+    tmp = __osip_sdp_append_string (&string, &size, tmp, sdp->y_ssrc);
+    tmp = __osip_sdp_append_string (&string, &size, tmp, CRLF);
+  }
+  if (sdp->f_mediainfo != NULL) {
+    tmp = __osip_sdp_append_string (&string, &size, tmp, "f=");
+    tmp = __osip_sdp_append_string (&string, &size, tmp, sdp->f_mediainfo);
+    tmp = __osip_sdp_append_string (&string, &size, tmp, CRLF);
+  }
+
   *dest = string;
   return OSIP_SUCCESS;
 }

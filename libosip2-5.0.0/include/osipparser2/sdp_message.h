@@ -253,6 +253,9 @@ extern "C" {
     osip_list_t a_attributes;
                                                            /**< list of global attributes (sdp_attribute_t) */
     osip_list_t m_medias;              /**< list of supported media (sdp_media_t) */
+
+    char *y_ssrc;                                   /**< y header */
+    char *f_mediainfo;                               /**< f header */
   };
 
 

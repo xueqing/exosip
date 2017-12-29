@@ -253,13 +253,13 @@ _eXosip_complete_answer_that_establish_a_dialog (struct eXosip_t *excontext, osi
     }
   }
 
-  {
-      /*kiki: 2017/12/28*/
-      osip_contact_t *pContact = NULL;
-      osip_message_get_contact(response, 0, &pContact);
-      if(pContact == NULL || pContact->url == NULL)
-          osip_message_set_contact (response, contact);
-  }
+//  {
+//      /*kiki: 2017/12/28*/
+//      osip_contact_t *pContact = NULL;
+//      osip_message_get_contact(response, 0, &pContact);
+//      if(pContact == NULL || pContact->url == NULL)
+//          osip_message_set_contact (response, contact);
+//  }
 
   if (excontext->default_contact_displayname[0]!='\0') {
     osip_contact_t *new_contact;

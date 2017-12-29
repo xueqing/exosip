@@ -227,13 +227,13 @@ eXosip_call_build_initial_invite (struct eXosip_t *excontext, osip_message_t ** 
   if (i != 0)
     return i;
 
-  {
-      /*kiki: 2017/12/28*/
-      osip_contact_t *pContact = NULL;
-      osip_message_get_contact(*invite, 0, &pContact);
-      if(pContact == NULL || pContact->url == NULL)
-          _eXosip_dialog_add_contact (excontext, *invite);
-  }
+//  {
+//      /*kiki: 2017/12/28*/
+//      osip_contact_t *pContact = NULL;
+//      osip_message_get_contact(*invite, 0, &pContact);
+//      if(pContact == NULL || pContact->url == NULL)
+//          _eXosip_dialog_add_contact (excontext, *invite);
+//  }
 
   subject_header = NULL;
   osip_message_get_subject (*invite, 0, &subject_header);

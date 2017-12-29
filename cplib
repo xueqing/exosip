@@ -10,10 +10,10 @@ function JudgeInputParams() {
 	fi
 
 	case $2 in
-		s|d)
+		s|d|h)
 		;;
 		*)
-		echo "[s|d] supported only"
+		echo "[s|d|h] supported only"
 		return -1
 		;;
 	esac
@@ -31,11 +31,11 @@ function CopyCaresLibrary {
 	DEST_PATH=$1
 	
 	case $2 in
-		"s")
+		"d")
 		libdir="/usr/local/lib"
 		cp -a  $libdir/libcares.so* $DEST_PATH
 		;;
-		"d")
+		"s")
 		libdir="/usr/local/lib"
 		cp -a  $libdir/libcares.a $DEST_PATH
 		;;
@@ -50,12 +50,12 @@ function CopyOsipLibrary {
 	DEST_PATH=$1
 	
 	case $2 in
-		"s")
+		"d")
 		libdir="/usr/local/lib"
 		cp -a  $libdir/libosipparser2.so* $DEST_PATH
 		cp -a  $libdir/libosip2.so* $DEST_PATH
 		;;
-		"d")
+		"s")
 		libdir="/usr/local/lib"
 		cp -a  $libdir/libosipparser2.a $DEST_PATH
 		cp -a  $libdir/libosip2.a $DEST_PATH
@@ -73,11 +73,11 @@ function CopyExosipLibrary {
 	DEST_PATH=$1
 	
 	case $2 in
-		"s")
+		"d")
 		libdir="/usr/local/lib"
 		cp -a $libdir/libeXosip2.so* $DEST_PATH
 		;;
-		"d")
+		"s")
 		libdir="/usr/local/lib"
 		cp -a  $libdir/libeXosip2.a $DEST_PATH
 		;;

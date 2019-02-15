@@ -1,5 +1,10 @@
 # 关于 exosip 库
 
+- [关于 exosip 库](#%E5%85%B3%E4%BA%8E-exosip-%E5%BA%93)
+  - [依赖关系](#%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB)
+  - [编译](#%E7%BC%96%E8%AF%91)
+  - [ubuntu-16 编译](#ubuntu-16-%E7%BC%96%E8%AF%91)
+
 ## 依赖关系
 
 三者之间的依赖关系是：
@@ -36,3 +41,13 @@
   - 5 编译生成的库置于 `libexosip2-5.0.0/src/.libs/`
   - 6 默认安装到 `/usr/local/lib`,`libeXosip2.so.so.12.0.0`, `libeXosip2.so.a`
   - 7 头文件拷贝到 `/usr/local/include/eXosip2`
+
+## ubuntu-16 编译
+
+- 环境：g++5.4
+- 步骤
+  - 1 修改 [libosip](./libosip2-5.0.0/configure) 和 [libexosip](./libexosip2-5.0.0/configure) 的 configure 脚本
+    - 修改 `am__api_version='1.14'` 为 `am__api_version='1.15'`
+  - 2 安装 automake: `sudo apt-get install autotools-dev automake`
+    - automake 版本默认是 1.15
+  - 3 按照上面的步骤编译三个库

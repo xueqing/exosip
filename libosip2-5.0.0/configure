@@ -2344,7 +2344,7 @@ ac_configure="$SHELL $ac_aux_dir/configure"  # Please don't use this var.
 
 ac_config_headers="$ac_config_headers osip-config.h"
 
-am__api_version='1.14'
+am__api_version='1.15'
 
 # Find a good install program.  We prefer a C program (faster),
 # so one script is as good as another.  But avoid the broken or

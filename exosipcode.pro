@@ -3,6 +3,13 @@ CONFIG += console
 CONFIG -= app_bundle
 CONFIG -= qt
 
+INCLUDEPATH += \
+    libexosip2-5.0.0/ \
+    libexosip2-5.0.0/include \
+    libosip2-5.0.0/ \
+    libosip2-5.0.0/include \
+    c-ares-1.12.0
+
 SOURCES += main.cpp \
     libexosip2-5.0.0/src/eXcall_api.c \
     libexosip2-5.0.0/src/eXconf.c \

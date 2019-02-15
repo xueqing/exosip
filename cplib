@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function JudgeInputParams() {
-	echo "JudgeInputParams"  $1 $2
+	echo "JudgeInputParams"  $1 $2 $3
 
 	if [ ! -d "/$1" ]
 	then

@@ -199,6 +199,15 @@ osip_authorization_parse (osip_authorization_t * auth, const char *hvalue)
         space = next;
         parse_ok++;
     }
+    i = __osip_token_set ("keyversion", space, &(auth->keyversion), &next);
+    if (i!=0)
+      return i;
+    if (next == NULL)
+      return OSIP_SUCCESS;               /* end of header detected! */
+    else if (next != space) {
+        space = next;
+        parse_ok++;
+    }
     i = __osip_quoted_string_set ("targetname", space, &(auth->targetname), &next);
     if (i!=0)
       return i;
@@ -447,6 +456,19 @@ osip_authorization_set_version (osip_authorization_t * authorization,
 }
 
 char *
+osip_authorization_get_keyversion (osip_authorization_t * authorization)
+{
+  return authorization->keyversion;
+}
+
+void
+osip_authorization_set_keyversion (osip_authorization_t * authorization,
+                char *keyversion)
+{
+  authorization->keyversion = (char *) keyversion;
+}
+
+char *
 osip_authorization_get_targetname (osip_authorization_t * authorization)
 {
   return authorization->targetname;
@@ -549,6 +571,8 @@ osip_authorization_to_str (const osip_authorization_t * auth, char **dest)
     len = len + strlen (auth->message_qop) + 6;
   if (auth->version != NULL)
     len = len + strlen (auth->version) + 10;
+  if (auth->keyversion != NULL)
+    len = len + strlen (auth->keyversion) + 13;
   if (auth->targetname != NULL)
     len = len + strlen (auth->targetname) + 13;
   if (auth->gssapi_data != NULL)
@@ -658,6 +682,13 @@ osip_authorization_to_str (const osip_authorization_t * auth, char **dest)
     tmp = osip_strn_append (tmp, " version=", 9);
     tmp = osip_str_append (tmp, auth->version);
   }
+  if (auth->keyversion != NULL) {
+    if(!first)
+      tmp = osip_strn_append (tmp, ",", 1);
+    first = 0;
+    tmp = osip_strn_append (tmp, " keyversion=", 12);
+    tmp = osip_str_append (tmp, auth->keyversion);
+  }
   if (auth->targetname != NULL) {
     if(!first)
       tmp = osip_strn_append (tmp, ",", 1);
@@ -709,6 +740,7 @@ osip_authorization_free (osip_authorization_t * authorization)
   osip_free (authorization->message_qop);
   osip_free (authorization->nonce_count);
   osip_free (authorization->version);
+  osip_free (authorization->keyversion);
   osip_free (authorization->targetname);
   osip_free (authorization->gssapi_data);
   osip_free (authorization->crand);
@@ -826,6 +858,13 @@ osip_authorization_clone (const osip_authorization_t * auth, osip_authorization_
   if (auth->version != NULL) {
     au->version = osip_strdup (auth->version);
     if (auth->version == NULL) {
+      osip_authorization_free (au);
+      return OSIP_NOMEM;
+    }
+  }
+  if (auth->keyversion != NULL) {
+    au->keyversion = osip_strdup (auth->keyversion);
+    if (auth->keyversion == NULL) {
       osip_authorization_free (au);
       return OSIP_NOMEM;
     }

@@ -58,6 +58,7 @@
     char *message_qop;		/**< message_qop (optionnal) */
     char *nonce_count;		/**< nonce_count (optionnal) */
     char *version;		/**< version (optional - NTLM) */
+    char *keyversion;		/**< keyversion (optional - NTLM) */
     char *targetname;		/**< targetname (optional - NTLM) */
     char *gssapi_data;		/**< gssapi-data (optional - NTLM) */
     char *crand;
@@ -245,6 +246,18 @@ extern "C"
  */
   void osip_authorization_set_version (osip_authorization_t * header,
 					char *value);
+/**
+* Get value of the keyversion parameter from a Authorization element.
+* @param header The element to work on.
+*/
+char *osip_authorization_get_keyversion (osip_authorization_t * header);
+/**
+* Add the keyversion parameter from a Authorization element.
+* @param header The element to work on.
+* @param value The value of the new parameter.
+*/
+void osip_authorization_set_keyversion (osip_authorization_t * header,
+                  char *keyversion);
 /**
  * Get value of the targetname parameter from a Authorization element.
  * @param header The element to work on.

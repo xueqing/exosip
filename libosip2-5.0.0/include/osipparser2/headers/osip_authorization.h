@@ -52,17 +52,22 @@
     char *uri;  		/**< uri */
     char *response;		/**< response */
     char *digest;		/**< digest */
+    char *random1;		/**< random1 (optionnal - GB35114) */
+    char *random2;		/**< random2 (optionnal - GB35114) */
+    char *serverid;		/**< serverid (optionnal - GB35114) */
+    char *deviceid;		/**< deviceid (optionnal - GB35114) */
+    char *sign1;		/**< sign1 (optionnal - GB35114) */
     char *algorithm;		/**< algorithm (optionnal) */
     char *cnonce;		/**< cnonce (optionnal) */
     char *opaque;		/**< opaque (optionnal) */
     char *message_qop;		/**< message_qop (optionnal) */
     char *nonce_count;		/**< nonce_count (optionnal) */
     char *version;		/**< version (optional - NTLM) */
-    char *keyversion;		/**< keyversion (optional - NTLM) */
+    char *keyversion;		/**< keyversion (optional - GB35114) */
     char *targetname;		/**< targetname (optional - NTLM) */
     char *gssapi_data;		/**< gssapi-data (optional - NTLM) */
     char *crand;
-	  char *cnum;
+    char *cnum;
     char *auth_param;		/**< other parameters (optionnal) */
   };
 
@@ -180,6 +185,66 @@ extern "C"
  */
   void osip_authorization_set_digest (osip_authorization_t * header, char *value);
 /**
+ * Get value of the random1 parameter from a Authorization element.
+ * @param header The element to work on.
+ */
+  char *osip_authorization_get_random1 (osip_authorization_t * header);
+/**
+ * Add the random1 parameter from a Authorization element.
+ * @param header The element to work on.
+ * @param value The value of the new parameter.
+ */
+  void osip_authorization_set_random1 (osip_authorization_t * header,
+                    char *value);
+/**
+ * Get value of the random2 parameter from a Authorization element.
+ * @param header The element to work on.
+ */
+  char *osip_authorization_get_random2 (osip_authorization_t * header);
+/**
+ * Add the random2 parameter from a Authorization element.
+ * @param header The element to work on.
+ * @param value The value of the new parameter.
+ */
+  void osip_authorization_set_random2 (osip_authorization_t * header,
+                    char *value);
+/**
+ * Get value of the serverid parameter from a Authorization element.
+ * @param header The element to work on.
+ */
+  char *osip_authorization_get_serverid (osip_authorization_t * header);
+/**
+ * Add the serverid parameter from a Authorization element.
+ * @param header The element to work on.
+ * @param value The value of the new parameter.
+ */
+  void osip_authorization_set_serverid (osip_authorization_t * header,
+                    char *value);
+/**
+ * Get value of the deviceid parameter from a Authorization element.
+ * @param header The element to work on.
+ */
+  char *osip_authorization_get_deviceid (osip_authorization_t * header);
+/**
+ * Add the deviceid parameter from a Authorization element.
+ * @param header The element to work on.
+ * @param value The value of the new parameter.
+ */
+  void osip_authorization_set_deviceid (osip_authorization_t * header,
+                    char *value);
+/**
+ * Get value of the sign1 parameter from a Authorization element.
+ * @param header The element to work on.
+ */
+  char *osip_authorization_get_sign1 (osip_authorization_t * header);
+/**
+ * Add the sign1 parameter from a Authorization element.
+ * @param header The element to work on.
+ * @param value The value of the new parameter.
+ */
+  void osip_authorization_set_sign1 (osip_authorization_t * header,
+                    char *value);
+/**
  * Get value of the algorithm parameter from a Authorization element.
  * @param header The element to work on.
  */
@@ -247,17 +312,17 @@ extern "C"
   void osip_authorization_set_version (osip_authorization_t * header,
 					char *value);
 /**
-* Get value of the keyversion parameter from a Authorization element.
-* @param header The element to work on.
-*/
-char *osip_authorization_get_keyversion (osip_authorization_t * header);
+ * Get value of the keyversion parameter from a Authorization element.
+ * @param header The element to work on.
+ */
+  char *osip_authorization_get_keyversion (osip_authorization_t * header);
 /**
-* Add the keyversion parameter from a Authorization element.
-* @param header The element to work on.
-* @param value The value of the new parameter.
-*/
-void osip_authorization_set_keyversion (osip_authorization_t * header,
-                  char *keyversion);
+ * Add the keyversion parameter from a Authorization element.
+ * @param header The element to work on.
+ * @param value The value of the new parameter.
+ */
+  void osip_authorization_set_keyversion (osip_authorization_t * header,
+                    char *keyversion);
 /**
  * Get value of the targetname parameter from a Authorization element.
  * @param header The element to work on.
@@ -300,7 +365,7 @@ void osip_authorization_set_keyversion (osip_authorization_t * header,
  */
   char *osip_authorization_get_cnum (osip_authorization_t * header);
 /**
- * Add the gssapi_data parameter from a Authorization element.
+ * Add the cnum parameter from a Authorization element.
  * @param header The element to work on.
  * @param value The value of the new parameter.
  */

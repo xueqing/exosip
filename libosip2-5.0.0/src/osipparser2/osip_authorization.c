@@ -145,6 +145,51 @@ osip_authorization_parse (osip_authorization_t * auth, const char *hvalue)
       space = next;
       parse_ok++;
     }
+    i = __osip_quoted_string_set ("random1", space, &(auth->random1), &next);
+    if (i!=0)
+      return i;
+    if (next == NULL)
+      return OSIP_SUCCESS;               /* end of header detected! */
+    else if (next != space) {
+        space = next;
+        parse_ok++;
+    }
+    i = __osip_quoted_string_set ("random2", space, &(auth->random2), &next);
+    if (i!=0)
+      return i;
+    if (next == NULL)
+      return OSIP_SUCCESS;               /* end of header detected! */
+    else if (next != space) {
+        space = next;
+        parse_ok++;
+    }
+    i = __osip_quoted_string_set ("serverid", space, &(auth->serverid), &next);
+    if (i!=0)
+      return i;
+    if (next == NULL)
+      return OSIP_SUCCESS;               /* end of header detected! */
+    else if (next != space) {
+        space = next;
+        parse_ok++;
+    }
+    i = __osip_quoted_string_set ("deviceid", space, &(auth->deviceid), &next);
+    if (i!=0)
+      return i;
+    if (next == NULL)
+      return OSIP_SUCCESS;               /* end of header detected! */
+    else if (next != space) {
+        space = next;
+        parse_ok++;
+    }
+    i = __osip_quoted_string_set ("sign1", space, &(auth->sign1), &next);
+    if (i!=0)
+      return i;
+    if (next == NULL)
+      return OSIP_SUCCESS;               /* end of header detected! */
+    else if (next != space) {
+        space = next;
+        parse_ok++;
+    }
     i = __osip_token_set ("algorithm", space, &(auth->algorithm), &next);
     if (i != 0)
       return i;
@@ -383,6 +428,71 @@ osip_authorization_set_digest (osip_authorization_t * authorization, char *diges
 }
 
 char *
+osip_authorization_get_random1 (osip_authorization_t * authorization)
+{
+  return authorization->random1;
+}
+
+void
+osip_authorization_set_random1 (osip_authorization_t * authorization,
+                 char *random1)
+{
+  authorization->random1 = (char *) random1;
+}
+
+char *
+osip_authorization_get_random2 (osip_authorization_t * authorization)
+{
+  return authorization->random2;
+}
+
+void
+osip_authorization_set_random2 (osip_authorization_t * authorization,
+                 char *random2)
+{
+  authorization->random2 = (char *) random2;
+}
+
+char *
+osip_authorization_get_serverid (osip_authorization_t * authorization)
+{
+  return authorization->serverid;
+}
+
+void
+osip_authorization_set_serverid (osip_authorization_t * authorization,
+                 char *serverid)
+{
+  authorization->serverid = (char *) serverid;
+}
+
+char *
+osip_authorization_get_deviceid (osip_authorization_t * authorization)
+{
+  return authorization->deviceid;
+}
+
+void
+osip_authorization_set_deviceid (osip_authorization_t * authorization,
+                 char *deviceid)
+{
+  authorization->deviceid = (char *) deviceid;
+}
+
+char *
+osip_authorization_get_sign1 (osip_authorization_t * authorization)
+{
+  return authorization->sign1;
+}
+
+void
+osip_authorization_set_sign1 (osip_authorization_t * authorization,
+                 char *sign1)
+{
+  authorization->sign1 = (char *) sign1;
+}
+
+char *
 osip_authorization_get_algorithm (osip_authorization_t * authorization)
 {
   return authorization->algorithm;
@@ -520,7 +630,6 @@ osip_authorization_set_cnum (osip_authorization_t * authorization,
   authorization->cnum = (char *) cnum;
 }
 
-
 /* returns the authorization header as a string.          */
 /* INPUT : osip_authorization_t *authorization | authorization header.  */
 /* returns null on error. */
@@ -559,6 +668,16 @@ osip_authorization_to_str (const osip_authorization_t * auth, char **dest)
   len = len + 2;
   if (auth->digest != NULL)
     len = len + strlen (auth->digest) + 9;
+  if (auth->random1 != NULL)
+    len = len + strlen (auth->random1) + 10;
+  if (auth->random2 != NULL)
+    len = len + strlen (auth->random2) + 10;
+  if (auth->serverid != NULL)
+    len = len + strlen (auth->serverid) + 11;
+  if (auth->deviceid != NULL)
+    len = len + strlen (auth->deviceid) + 11;
+  if (auth->sign1 != NULL)
+    len = len + strlen (auth->sign1) + 8;
   if (auth->algorithm != NULL)
     len = len + strlen (auth->algorithm) + 12;
   if (auth->cnonce != NULL)
@@ -581,6 +700,7 @@ osip_authorization_to_str (const osip_authorization_t * auth, char **dest)
     len = len + strlen (auth->crand) + 8;
   if (auth->cnum != NULL)
     len = len + strlen (auth->cnum) + 7;
+
 
   tmp = (char *) osip_malloc (len);
   if (tmp == NULL)
@@ -639,6 +759,41 @@ osip_authorization_to_str (const osip_authorization_t * auth, char **dest)
     tmp = osip_strn_append (tmp, " digest=", 8);
     /* !! domain-value must be a list of URI in a quoted string !! */
     tmp = osip_str_append (tmp, auth->digest);
+  }
+  if (auth->random1 != NULL) {
+    if(!first)
+      tmp = osip_strn_append (tmp, ",", 1);
+    first = 0;
+    tmp = osip_strn_append (tmp, " random1=", 9);
+    tmp = osip_str_append (tmp, auth->random1);
+  }
+  if (auth->random2 != NULL) {
+    if(!first)
+      tmp = osip_strn_append (tmp, ",", 1);
+    first = 0;
+    tmp = osip_strn_append (tmp, " random2=", 9);
+    tmp = osip_str_append (tmp, auth->random2);
+  }
+  if (auth->serverid != NULL) {
+    if(!first)
+      tmp = osip_strn_append (tmp, ",", 1);
+    first = 0;
+    tmp = osip_strn_append (tmp, " serverid=", 10);
+    tmp = osip_str_append (tmp, auth->serverid);
+  }
+  if (auth->deviceid != NULL) {
+    if(!first)
+      tmp = osip_strn_append (tmp, ",", 1);
+    first = 0;
+    tmp = osip_strn_append (tmp, " deviceid=", 10);
+    tmp = osip_str_append (tmp, auth->deviceid);
+  }
+  if (auth->sign1 != NULL) {
+    if(!first)
+      tmp = osip_strn_append (tmp, ",", 1);
+    first = 0;
+    tmp = osip_strn_append (tmp, " sign1=", 7);
+    tmp = osip_str_append (tmp, auth->sign1);
   }
   if (auth->algorithm != NULL) {
     if(!first)
@@ -734,6 +889,11 @@ osip_authorization_free (osip_authorization_t * authorization)
   osip_free (authorization->uri);
   osip_free (authorization->response);
   osip_free (authorization->digest);
+  osip_free (authorization->random1);
+  osip_free (authorization->random2);
+  osip_free (authorization->serverid);
+  osip_free (authorization->deviceid);
+  osip_free (authorization->sign1);
   osip_free (authorization->algorithm);
   osip_free (authorization->cnonce);
   osip_free (authorization->opaque);
@@ -815,6 +975,41 @@ osip_authorization_clone (const osip_authorization_t * auth, osip_authorization_
   if (auth->digest != NULL) {
     au->digest = osip_strdup (auth->digest);
     if (au->digest == NULL) {
+      osip_authorization_free (au);
+      return OSIP_NOMEM;
+    }
+  }
+  if (auth->random1 != NULL) {
+    au->random1 = osip_strdup (auth->random1);
+    if (auth->random1 == NULL) {
+      osip_authorization_free (au);
+      return OSIP_NOMEM;
+    }
+  }
+  if (auth->random2 != NULL) {
+    au->random2 = osip_strdup (auth->random2);
+    if (auth->random2 == NULL) {
+      osip_authorization_free (au);
+      return OSIP_NOMEM;
+    }
+  }
+  if (auth->serverid != NULL) {
+    au->serverid = osip_strdup (auth->serverid);
+    if (auth->serverid == NULL) {
+      osip_authorization_free (au);
+      return OSIP_NOMEM;
+    }
+  }
+  if (auth->deviceid != NULL) {
+    au->deviceid = osip_strdup (auth->deviceid);
+    if (auth->deviceid == NULL) {
+      osip_authorization_free (au);
+      return OSIP_NOMEM;
+    }
+  }
+  if (auth->sign1 != NULL) {
+    au->sign1 = osip_strdup (auth->sign1);
+    if (auth->sign1 == NULL) {
       osip_authorization_free (au);
       return OSIP_NOMEM;
     }

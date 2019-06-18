@@ -55,7 +55,7 @@
 #define HAVE_TIME_H 1
 #define HAVE_STDARG_H 1
 
-#define snprintf _snprintf
+//#define snprintf _snprintf
 
 #if (_MSC_VER >= 1700) && !defined(_USING_V110_SDK71_)
 #include <winapifamily.h>

@@ -70,7 +70,8 @@
 #define HAVE_STDARG_H 1
 #define HAVE_SYS_STAT_H
 
-#define snprintf _snprintf
+//#define snprintf _snprintf
+#define HAVE_STRUCT_TIMESPEC 1
 
 /* use win32 crypto routines for random number generation */
 /* only use for vs .net (compiler v. 1300) or greater */

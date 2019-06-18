@@ -61,3 +61,14 @@ c-ares-1.12.0/ahost
 #cache file by automake
 libexosip2-5.0.0/autom4te.cache/
 libosip2-5.0.0/autom4te.cache/
+
+## windows
+src-win/exosip/platform/vsnet/.vs
+src-win/exosip/platform/vsnet/*.opendb
+src-win/exosip/platform/vsnet/*.db
+src-win/exosip/platform/vsnet/eXosip/
+# lib position
+src-win/exosip/platform/vsnet/v140
+src-win/exosip/platform/vsnet/libcares/
+src-win/osip/platform/vsnet/osip2/
+src-win/osip/platform/vsnet/osipparser2/

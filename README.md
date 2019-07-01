@@ -8,7 +8,7 @@
     - [4.1 错误及解决方案](#41-%E9%94%99%E8%AF%AF%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88)
       - [4.1.1 osipparser2 工程](#411-osipparser2-%E5%B7%A5%E7%A8%8B)
       - [4.1.2 osip2 工程](#412-osip2-%E5%B7%A5%E7%A8%8B)
-      - [4.1.3 cares 工程(成功)](#413-cares-%E5%B7%A5%E7%A8%8B%E6%88%90%E5%8A%9F)
+      - [4.1.3 cares 工程](#413-cares-%E5%B7%A5%E7%A8%8B)
       - [4.1.4 eXosip 工程](#414-eXosip-%E5%B7%A5%E7%A8%8B)
 
 ## 1 依赖关系
@@ -91,7 +91,7 @@ C1189 #error: Macro definition of snprintf conflicts with Standard Library funct
 C2011 “timespec”:“struct”类型重定义 osip2 C:\Users\KIKI\Documents\GitHub\exosip\src-win\osip\include\osip2\osip_condv.h 61
 ```
 
-#### 4.1.3 cares 工程(成功)
+#### 4.1.3 cares 工程
 
 ```txt
 C1083 无法打开包括文件: “ares_build.h”: No such file or directory libcares c:\users\kiki\documents\github\exosip\src-win\c-ares\ares_setup.h 83

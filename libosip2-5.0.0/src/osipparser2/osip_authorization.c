@@ -145,7 +145,7 @@ osip_authorization_parse (osip_authorization_t * auth, const char *hvalue)
       space = next;
       parse_ok++;
     }
-    i = __osip_quoted_string_set ("random1", space, &(auth->random1), &next);
+    i = __osip_token_set ("random1", space, &(auth->random1), &next);
     if (i!=0)
       return i;
     if (next == NULL)
@@ -154,7 +154,7 @@ osip_authorization_parse (osip_authorization_t * auth, const char *hvalue)
         space = next;
         parse_ok++;
     }
-    i = __osip_quoted_string_set ("random2", space, &(auth->random2), &next);
+    i = __osip_token_set ("random2", space, &(auth->random2), &next);
     if (i!=0)
       return i;
     if (next == NULL)
@@ -163,7 +163,7 @@ osip_authorization_parse (osip_authorization_t * auth, const char *hvalue)
         space = next;
         parse_ok++;
     }
-    i = __osip_quoted_string_set ("serverid", space, &(auth->serverid), &next);
+    i = __osip_token_set ("serverid", space, &(auth->serverid), &next);
     if (i!=0)
       return i;
     if (next == NULL)
@@ -172,7 +172,7 @@ osip_authorization_parse (osip_authorization_t * auth, const char *hvalue)
         space = next;
         parse_ok++;
     }
-    i = __osip_quoted_string_set ("deviceid", space, &(auth->deviceid), &next);
+    i = __osip_token_set ("deviceid", space, &(auth->deviceid), &next);
     if (i!=0)
       return i;
     if (next == NULL)
@@ -181,7 +181,7 @@ osip_authorization_parse (osip_authorization_t * auth, const char *hvalue)
         space = next;
         parse_ok++;
     }
-    i = __osip_quoted_string_set ("sign1", space, &(auth->sign1), &next);
+    i = __osip_token_set ("sign1", space, &(auth->sign1), &next);
     if (i!=0)
       return i;
     if (next == NULL)

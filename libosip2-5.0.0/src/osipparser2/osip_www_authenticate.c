@@ -178,7 +178,18 @@ __osip_token_set (const char *name, const char *str, char **result, const char *
   if (osip_strncasecmp (name, str, strlen (name)) == 0) {
     const char *end;
 
-    end = strchr (str, ',');
+    if(strcmp(name, "algorithm") == 0)
+    {
+        end = strchr (str, ',');
+        while(end != NULL && end - beg > 1 && *(end - 1) != '"')
+        {
+            end = strchr(end+1, ',');
+        }
+    }
+    else
+    {
+        end = strchr (str, ',');
+    }
     if (end == NULL)
       end = str + strlen (str); /* This is the end of the header */
 

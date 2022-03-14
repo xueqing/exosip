@@ -1,0 +1,12 @@
+---
+Language:        Cpp
+BasedOnStyle:  Google
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+SpaceAfterCStyleCast: true
+IndentCaseLabels: false
+SortIncludes: false
+ColumnLimit:     250
+
+

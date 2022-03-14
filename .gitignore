@@ -20,6 +20,18 @@ libexosip2-5.0.0/libtool
 libexosip2-5.0.0/exosip-config.h
 libexosip2-5.0.0/stamp-h1
 
+5.3.0/exosip-5.3.0/src/.deps
+5.3.0/exosip-5.3.0/src/.libs/*.lai
+5.3.0/exosip-5.3.0/help/doxygen/doxygen.dox
+5.3.0/exosip-5.3.0/tools/.deps
+5.3.0/exosip-5.3.0/tools/.libs
+5.3.0/exosip-5.3.0/tools/sip_monitor
+5.3.0/exosip-5.3.0/tools/sip_reg
+5.3.0/exosip-5.3.0/tools/sip_storm
+5.3.0/exosip-5.3.0/libtool
+5.3.0/exosip-5.3.0/exosip-config.h
+5.3.0/exosip-5.3.0/stamp-h1
+
 #binary file created by compiling in libosip2
 libosip2-5.0.0/src/osipparser2/.deps
 libosip2-5.0.0/src/osipparser2/.libs/*.lai
@@ -34,6 +46,18 @@ libosip2-5.0.0/libosip2.pc
 libosip2-5.0.0/libtool
 libosip2-5.0.0/osip-config.h
 libosip2-5.0.0/stamp-h1
+
+5.3.0/libosip2-5.3.0/src/osipparser2/.deps
+5.3.0/libosip2-5.3.0/src/osipparser2/.libs/*.lai
+5.3.0/libosip2-5.3.0/src/osip2/.deps
+5.3.0/libosip2-5.3.0/src/osip2/.libs/*.lai
+5.3.0/libosip2-5.3.0/src/osip2/.libs/libosip2.so.15.0.0T
+5.3.0/libosip2-5.3.0/src/test/.deps
+5.3.0/libosip2-5.3.0/include/osip2/doxygen.dox
+5.3.0/libosip2-5.3.0/libosip2.pc
+5.3.0/libosip2-5.3.0/libtool
+5.3.0/libosip2-5.3.0/osip-config.h
+5.3.0/libosip2-5.3.0/stamp-h1
 
 #binary file created by compiling in c-ares
 c-ares-1.12.0/.pdf

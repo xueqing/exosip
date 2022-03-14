@@ -11,6 +11,7 @@
       - [4.1.3 cares 工程(成功)](#413-cares-工程成功)
       - [4.1.4 eXosip 工程](#414-exosip-工程)
   - [5 Windows Mingw 编译](#5-windows-mingw-编译)
+  - [6 ubuntu-20 编译](#6-ubuntu-20-编译)
 
 ## 1 依赖关系
 
@@ -142,3 +143,13 @@ C1083 无法打开源文件: “..\..\..\exosip\src\eXrefer_api.c”: No such fi
   ```
 
   - 5 应该避免安装到`/usr/local`
+
+## 6 ubuntu-20 编译
+
+- 环境：gcc9.4.0，默认 openssl 版本为 1.1.1
+- **注意：** ubuntu16 默认 openssl 版本为 1.0.2，原来的 eXosip 源码编译时会报错 `error: dereferencing pointer to incomplete type 'SSL_CTX' {aka 'struct ssl_ctx_st'}`。这是由于 openssl 从 1.0.2 升级到 1.1.0 不兼容所致，[参考](https://github.com/openssl/openssl/issues/9772)，需要使用访问器函数获取结构数据。
+- 步骤
+  - 1 更新 osip 和 eXosip 到 5.3.0 版本，使用 [libosip](./5.3.0/libosip2-5.3.0/) 和 [libexosip](./5.3.0/exosip-5.3.0)
+  - 2 安装 automake: `sudo apt-get install -y autotools-dev automake`
+  - 3 按照上面的步骤编译三个库
+    - **注意：** exosip-5.3.0 源码没有 `configure` 脚本，需要先执行 `./autogen.sh` 以生成 `configure` 脚本，然后按照上述步骤编译

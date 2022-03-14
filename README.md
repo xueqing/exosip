@@ -12,6 +12,7 @@
       - [4.1.4 eXosip 工程](#414-exosip-工程)
   - [5 Windows Mingw 编译](#5-windows-mingw-编译)
   - [6 ubuntu-20 编译](#6-ubuntu-20-编译)
+  - [参考](#参考)
 
 ## 1 依赖关系
 
@@ -153,3 +154,10 @@ C1083 无法打开源文件: “..\..\..\exosip\src\eXrefer_api.c”: No such fi
   - 2 安装 automake: `sudo apt-get install -y autotools-dev automake`
   - 3 按照上面的步骤编译三个库
     - **注意：** exosip-5.3.0 源码没有 `configure` 脚本，需要先执行 `./autogen.sh` 以生成 `configure` 脚本，然后按照上述步骤编译
+
+## 参考
+
+- [osip 项目主页](https://savannah.gnu.org/projects/osip)
+- [osip 源码](http://ftp.gnu.org/gnu/osip/)
+- [exosip 项目主页](https://savannah.nongnu.org/projects/exosip)
+- [exosip 源码](https://git.savannah.nongnu.org/cgit/exosip.git)

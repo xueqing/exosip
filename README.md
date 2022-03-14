@@ -1,16 +1,16 @@
 # 关于 exosip 库
 
-- [关于 exosip 库](#%E5%85%B3%E4%BA%8E-exosip-%E5%BA%93)
-  - [1 依赖关系](#1-%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB)
-  - [2 ubuntu-14 编译](#2-ubuntu-14-%E7%BC%96%E8%AF%91)
-  - [3 ubuntu-16 编译](#3-ubuntu-16-%E7%BC%96%E8%AF%91)
-  - [4 Windows VS2015 编译](#4-Windows-VS2015-%E7%BC%96%E8%AF%91)
-    - [4.1 错误及解决方案](#41-%E9%94%99%E8%AF%AF%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88)
-      - [4.1.1 osipparser2 工程](#411-osipparser2-%E5%B7%A5%E7%A8%8B)
-      - [4.1.2 osip2 工程](#412-osip2-%E5%B7%A5%E7%A8%8B)
-      - [4.1.3 cares 工程(成功)](#413-cares-%E5%B7%A5%E7%A8%8B%E6%88%90%E5%8A%9F)
-      - [4.1.4 eXosip 工程](#414-eXosip-%E5%B7%A5%E7%A8%8B)
-  - [5 Windows Mingw 编译](#5-Windows-Mingw-%E7%BC%96%E8%AF%91)
+- [关于 exosip 库](#关于-exosip-库)
+  - [1 依赖关系](#1-依赖关系)
+  - [2 ubuntu-14 编译](#2-ubuntu-14-编译)
+  - [3 ubuntu-16 编译](#3-ubuntu-16-编译)
+  - [4 Windows VS2015 编译](#4-windows-vs2015-编译)
+    - [4.1 错误及解决方案](#41-错误及解决方案)
+      - [4.1.1 osipparser2 工程](#411-osipparser2-工程)
+      - [4.1.2 osip2 工程](#412-osip2-工程)
+      - [4.1.3 cares 工程(成功)](#413-cares-工程成功)
+      - [4.1.4 eXosip 工程](#414-exosip-工程)
+  - [5 Windows Mingw 编译](#5-windows-mingw-编译)
 
 ## 1 依赖关系
 
@@ -55,7 +55,7 @@
 - 步骤
   - 1 修改 [libosip](./libosip2-5.0.0/configure) 和 [libexosip](./libexosip2-5.0.0/configure) 的 configure 脚本
     - 修改 `am__api_version='1.14'` 为 `am__api_version='1.15'`
-  - 2 安装 automake: `sudo apt-get install autotools-dev automake`
+  - 2 安装 automake: `sudo apt-get install -y autotools-dev automake libtools`
     - automake 版本默认是 1.15
   - 3 按照上面的步骤编译三个库
 

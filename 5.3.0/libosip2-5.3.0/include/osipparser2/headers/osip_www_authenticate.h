@@ -49,6 +49,7 @@ struct osip_www_authenticate {
   char *opaque;      /**< opaque (optional) */
   char *stale;       /**< stale (optional) */
   char *algorithm;   /**< algorythm (optional) */
+  char *random1;     /**< random1 (for gb35114) (optional) */
   char *qop_options; /**< qop option (optional)  */
   char *version;     /**< version (optional - NTLM) */
   char *targetname;  /**< targetname (optional - NTLM) */
@@ -181,6 +182,18 @@ void osip_www_authenticate_set_algorithm(osip_www_authenticate_t *header, char *
  * @param header The element to work on.
  */
 #define osip_www_authenticate_set_algorithm_MD5(header) osip_www_authenticate_set_algorithm(header, osip_strdup("MD5"))
+/**
+* Get value of the random1 parameter from a Www-Authenticate element.
+* @param header The element to work on.
+*/
+char *osip_www_authenticate_get_random1 (osip_www_authenticate_t * header);
+/**
+* Add the random1 parameter in a Www-Authenticate element.
+* @param header The element to work on.
+* @param value The value of the new parameter.
+*/
+void osip_www_authenticate_set_random1 (osip_www_authenticate_t * header,
+                                        char *value);
 /**
  * Get value of the qop_options parameter from a Www-Authenticate element.
  * @param header The element to work on.

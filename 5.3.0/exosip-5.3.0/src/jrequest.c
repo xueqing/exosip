@@ -560,7 +560,7 @@ int _eXosip_generating_request_out_of_dialog(struct eXosip_t *excontext, osip_me
       return i;
     }
 
-    num = osip_strdup(doing_register ? "1" : "20");
+    num = osip_strdup(doing_register ? "1" : "1");
     osip_cseq_set_number(cseq, num);
     osip_cseq_set_method(cseq, osip_strdup(method));
     request->cseq = cseq;

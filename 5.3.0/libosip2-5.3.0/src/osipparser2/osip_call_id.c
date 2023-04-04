@@ -33,8 +33,12 @@ int osip_message_set_call_id(osip_message_t *sip, const char *hvalue) {
   if (hvalue == NULL || hvalue[0] == '\0')
     return OSIP_SUCCESS;
 
-  if (sip->call_id != NULL)
-    return OSIP_SYNTAXERROR;
+  if (sip->call_id != NULL){
+      // kiki: modified in 2019/4/22 for gb35114
+      osip_call_id_free (sip->call_id);
+      sip->call_id = NULL;
+//      return OSIP_SYNTAXERROR;
+  }
 
   i = osip_call_id_init(&(sip->call_id));
 

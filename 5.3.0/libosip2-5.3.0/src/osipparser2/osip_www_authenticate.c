@@ -199,7 +199,15 @@ int __osip_token_set(const char *name, const char *str, char **result, const cha
   if (osip_strncasecmp(name, str, strlen(name)) == 0) {
     const char *end;
 
-    end = strchr(str, ',');
+    if(strcmp(name, "algorithm") == 0) {
+        end = strchr (str, ',');
+        while(end != NULL && end - beg > 1 && *(beg + 1) == '"' && *(end - 1) != '"') {
+            end = strchr(end+1, ',');
+        }
+    }
+    else {
+        end = strchr (str, ',');
+    }
 
     if (end == NULL)
       end = str + strlen(str); /* This is the end of the header */
@@ -334,6 +342,19 @@ int osip_www_authenticate_parse(osip_www_authenticate_t *wwwa, const char *hvalu
     }
 
     i = __osip_token_set("algorithm", space, &(wwwa->algorithm), &next);
+
+    if (i != 0)
+      return i;
+
+    if (next == NULL)
+      return OSIP_SUCCESS; /* end of header detected! */
+    else if (next != space) {
+      space = next;
+      parse_ok++;
+    }
+
+    // kiki: __osip_token_set vs __osip_quoted_string_set
+    i = __osip_token_set("random1", space, &(wwwa->random1), &next);
 
     if (i != 0)
       return i;
@@ -509,6 +530,14 @@ void osip_www_authenticate_set_algorithm(osip_www_authenticate_t *www_authentica
   www_authenticate->algorithm = (char *) algorithm;
 }
 
+char *osip_www_authenticate_get_random1 (osip_www_authenticate_t * www_authenticate) {
+  return www_authenticate->random1;
+}
+
+void osip_www_authenticate_set_random1 (osip_www_authenticate_t * www_authenticate, char *random1) {
+  www_authenticate->random1 = (char *) random1;
+}
+
 char *osip_www_authenticate_get_qop_options(osip_www_authenticate_t *www_authenticate) {
   return www_authenticate->qop_options;
 }
@@ -575,6 +604,9 @@ int osip_www_authenticate_to_str(const osip_www_authenticate_t *wwwa, char **des
   if (wwwa->algorithm != NULL)
     len = len + strlen(wwwa->algorithm) + 12;
 
+  if (wwwa->random1 != NULL)
+    len = len + strlen (wwwa->random1) + 10;
+
   if (wwwa->qop_options != NULL)
     len = len + strlen(wwwa->qop_options) + 6;
 
@@ -626,6 +658,11 @@ int osip_www_authenticate_to_str(const osip_www_authenticate_t *wwwa, char **des
     tmp = osip_str_append(tmp, wwwa->algorithm);
   }
 
+  if (wwwa->random1 != NULL) {
+    tmp = osip_strn_append(tmp, ", random1=", 10);
+    tmp = osip_str_append(tmp, wwwa->random1);
+  }
+
   if (wwwa->qop_options != NULL) {
     tmp = osip_strn_append(tmp, ", qop=", 6);
     tmp = osip_str_append(tmp, wwwa->qop_options);
@@ -670,6 +707,7 @@ void osip_www_authenticate_free(osip_www_authenticate_t *www_authenticate) {
   osip_free(www_authenticate->opaque);
   osip_free(www_authenticate->stale);
   osip_free(www_authenticate->algorithm);
+  osip_free(www_authenticate->random1);
   osip_free(www_authenticate->qop_options);
   osip_free(www_authenticate->version);
   osip_free(www_authenticate->targetname);
@@ -746,6 +784,14 @@ int osip_www_authenticate_clone(const osip_www_authenticate_t *wwwa, osip_www_au
     wa->algorithm = osip_strdup(wwwa->algorithm);
 
   if (wa->algorithm == NULL && wwwa->algorithm != NULL) {
+    osip_www_authenticate_free(wa);
+    return OSIP_NOMEM;
+  }
+
+  if (wwwa->random1 != NULL)
+    wa->random1 = osip_strdup(wwwa->random1);
+
+  if (wa->random1 == NULL && wwwa->random1 != NULL) {
     osip_www_authenticate_free(wa);
     return OSIP_NOMEM;
   }

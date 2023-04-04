@@ -22,6 +22,7 @@
 
 #include <osipparser2/osip_list.h>
 #include <osipparser2/osip_uri.h>
+#include <osipparser2/headers/osip_header.h>
 
 /**
  * @file osip_from.h

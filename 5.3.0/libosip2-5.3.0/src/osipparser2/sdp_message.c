@@ -1445,7 +1445,7 @@ static int sdp_message_parse_m(sdp_message_t *sdp, char *buf, char **next) {
 
   /* check if header is "m" */
   if (equal[-1] != 'm')
-    return ERR_ERROR; /* fixed Jan 10,2020: avoid a possible memory leak with m being not detected */
+    return ERR_DISCARD; /* fixed Jan 10,2020: avoid a possible memory leak with m being not detected */
 
   crlf = equal + 1;
 
